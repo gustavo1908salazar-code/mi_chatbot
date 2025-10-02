@@ -1,8 +1,3 @@
-"""
-Paso 1: Agente Básico con Groq API (GRATIS)
-Tu primer agente de IA usando Groq API
-"""
-
 import os
 import sys
 from groq import Groq

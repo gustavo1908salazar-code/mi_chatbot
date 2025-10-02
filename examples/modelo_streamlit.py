@@ -1,16 +1,9 @@
-"""
-Chatbot con Groq API - Interfaz Streamlit
-Instalación: pip install streamlit groq python-dotenv
-Ejecución: streamlit run chatbot_streamlit.py
-"""
-
 import os
 from groq import Groq
 from dotenv import load_dotenv
 import streamlit as st
 from datetime import datetime
 
-# Cargar variables de entorno
 env_path = r"C:\Users\Gustavo\Desktop\mi_chatbot\.env"
 load_dotenv(dotenv_path=env_path)
 

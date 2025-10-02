@@ -37,7 +37,7 @@ python examples\modelo_gradio.py
 -Para una experiencia más completa e interactiva, se recomienda usar la interfaz de Streamlit. Se ejecuta de la siguiente forma (recomendado):
 
 ```bash
-python examples\modelo_streamlit.py
+streamlit run examples\modelo_streamlit.py
 
 ```
 

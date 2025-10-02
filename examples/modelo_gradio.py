@@ -1,15 +1,8 @@
-"""
-Chatbot con Groq API - Interfaz Gradio
-Instalación: pip install gradio groq python-dotenv
-Ejecución: python chatbot_gradio.py
-"""
-
 import os
 from groq import Groq
 from dotenv import load_dotenv
 import gradio as gr
 
-# Cargar variables de entorno
 env_path = r"C:\Users\Gustavo\Desktop\mi_chatbot\.env"
 load_dotenv(dotenv_path=env_path)
 
@@ -66,7 +59,6 @@ class ChatAgent:
             return f"❌ Error: {str(e)}"
 
 
-# Inicializar agente global
 agent = None
 
 
@@ -78,7 +70,7 @@ def initialize_agent(model, temperature, system_prompt):
         temperature=temperature,
         system_prompt=system_prompt
     )
-    return None  # Limpiar el chatbot
+    return None  
 
 
 def chat_function(message, history):
@@ -93,7 +85,6 @@ def chat_function(message, history):
     return response
 
 
-# Crear interfaz con Gradio
 with gr.Blocks(
     title="Chatbot con Groq API",
     theme=gr.themes.Soft(
@@ -110,7 +101,6 @@ with gr.Blocks(
     """
 ) as demo:
     
-    # Header
     gr.Markdown(
         """
         # 🤖 Chatbot Inteligente con Groq API
@@ -157,7 +147,6 @@ with gr.Blocks(
                 label="💡 Ejemplos de preguntas"
             )
         
-        # TAB 2: CONFIGURACIÓN
         with gr.Tab("⚙️ Configuración", id=1):
             
             gr.Markdown("### Personaliza tu agente de IA")
@@ -196,7 +185,7 @@ with gr.Blocks(
             
             config_status = gr.Markdown("ℹ️ Haz clic en 'Aplicar Configuración' para inicializar el agente")
             
-            # Información adicional
+            
             with gr.Accordion("📚 Información sobre los modelos", open=False):
                 gr.Markdown(
                     """
@@ -210,7 +199,7 @@ with gr.Blocks(
                     """
                 )
         
-        # TAB 3: INFORMACIÓN
+        
         with gr.Tab("ℹ️ Información", id=2):
             gr.Markdown(
                 """
@@ -249,7 +238,6 @@ with gr.Blocks(
                 """
             )
     
-    # Eventos
     def respond(message, chat_history):
         """Manejar respuesta del bot"""
         if not message.strip():
@@ -270,7 +258,6 @@ with gr.Blocks(
         initialize_agent(model, temperature, system_prompt)
         return f"✅ Configuración aplicada correctamente!\n\n**Modelo**: {model}\n**Temperatura**: {temperature}"
     
-    # Conectar eventos
     msg.submit(respond, [msg, chatbot], [msg, chatbot])
     send_btn.click(respond, [msg, chatbot], [msg, chatbot])
     clear_btn.click(clear_chat, None, chatbot)
@@ -280,7 +267,6 @@ with gr.Blocks(
         config_status
     )
     
-    # Inicializar agente al cargar
     demo.load(
         apply_config,
         [model_dropdown, temperature_slider, system_prompt_textbox],
@@ -303,7 +289,7 @@ if __name__ == "__main__":
     demo.launch(
         server_name="127.0.0.1",
         server_port=7860,
-        share=False,  # Cambia a True para obtener un link público
+        share=False, 
         show_error=True,
         quiet=False
     )
