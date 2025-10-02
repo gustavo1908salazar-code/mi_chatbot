@@ -124,7 +124,6 @@ st.markdown("""
 st.markdown("""
     <div class="chat-header">
         <h1>🤖 Chatbot Inteligente</h1>
-        <p>Powered by Groq API | Modelos LLaMA 3.3 & Mixtral</p>
     </div>
 """, unsafe_allow_html=True)
 
@@ -139,15 +138,15 @@ with st.sidebar:
     
 
     model_info = {
-        "llama-3.3-70b-versatile": "🦙 LLaMA 3.3 70B - El más potente",
-        "llama-3.1-70b-versatile": "🦙 LLaMA 3.1 70B - Muy capaz", 
-        "llama-3.1-8b-instant": "⚡ LLaMA 3.1 8B - Ultra rápido",
-        "mixtral-8x7b-32768": "🔀 Mixtral 8x7B - Contexto largo",
-        "gemma2-9b-it": "💎 Gemma2 9B - Compacto"
+        "llama-3.3-70b-versatile": " LLaMA 3.3 70B - El más potente",
+        "llama-3.1-70b-versatile": " LLaMA 3.1 70B - Muy capaz", 
+        "llama-3.1-8b-instant": " LLaMA 3.1 8B - Ultra rápido",
+        "mixtral-8x7b-32768": " Mixtral 8x7B - Contexto largo",
+        "gemma2-9b-it": " Gemma2 9B - Compacto"
     }
     
     selected_model = st.selectbox(
-        "🎯 Modelo de IA",
+        "Modelo de IA",
         options=list(model_info.keys()),
         format_func=lambda x: model_info[x],
         index=0
@@ -155,7 +154,7 @@ with st.sidebar:
     
     # Control de temperatura
     temperature = st.slider(
-        "🌡️ Temperatura",
+        "Temperatura (aleatoriedad: 0-3 = respuestas simples 3-10 = respuestas menos predecibles)",
         min_value=0.0,
         max_value=2.0,
         value=0.7,
@@ -195,7 +194,7 @@ with st.sidebar:
     
     st.divider()
     
-    st.subheader("📊 Estadísticas")
+    st.subheader("Estadísticas")
     
     num_messages = len(st.session_state.get("messages", []))
     
@@ -207,9 +206,9 @@ with st.sidebar:
     
     st.divider()
     
-    with st.expander("ℹ️ Acerca de", expanded=False):
+    with st.expander("Acerca de", expanded=False):
         st.markdown("""
-        **Chatbot con Groq API**
+        **Chatbot**
         
         Características:
         - ✅ Modelos de última generación
@@ -220,7 +219,6 @@ with st.sidebar:
         
         Tecnologías:
         - Framework: Streamlit
-        - Proveedor: Groq
         - Lenguaje: Python
         """)
     

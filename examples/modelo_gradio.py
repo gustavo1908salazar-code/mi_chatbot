@@ -9,11 +9,11 @@ load_dotenv()
 api_key = os.getenv("GROQ_API_KEY")
 
 if not api_key:
-    raise ValueError("⚠️ No se encontró GROQ_API_KEY en el archivo .env")
+    raise ValueError("No se encontró GROQ_API_KEY en el archivo .env")
 
 
 class ChatAgent:
-    """Agente de chat con Groq"""
+    """Agente de chat"""
     
     def __init__(self, model="llama-3.3-70b-versatile", temperature=0.7, system_prompt=""):
         self.client = Groq(api_key=api_key)
@@ -56,7 +56,7 @@ class ChatAgent:
             return assistant_message
         
         except Exception as e:
-            return f"❌ Error: {str(e)}"
+            return f"Error: {str(e)}"
 
 
 agent = None
@@ -76,7 +76,7 @@ def initialize_agent(model, temperature, system_prompt):
 def chat_function(message, history):
     """Función principal de chat para Gradio"""
     if agent is None:
-        return "⚠️ Por favor configura el agente primero en la pestaña de Configuración"
+        return "Por favor configura el agente primero en la pestaña de Configuración"
     
     if not message.strip():
         return ""
@@ -86,7 +86,7 @@ def chat_function(message, history):
 
 
 with gr.Blocks(
-    title="Chatbot con Groq API",
+    title="Chatbot",
     theme=gr.themes.Soft(
         primary_hue="blue",
         secondary_hue="cyan",
@@ -103,7 +103,7 @@ with gr.Blocks(
     
     gr.Markdown(
         """
-        # 🤖 Chatbot Inteligente con Groq API
+        # Chatbot Inteligente con uso de API
         ### Conversaciones potenciadas por IA de última generación
         ---
         """
@@ -111,8 +111,8 @@ with gr.Blocks(
     
     with gr.Tabs() as tabs:
         
-        # TAB 1: CHAT
-        with gr.Tab("💬 Chat", id=0):
+        
+        with gr.Tab("Chat", id=0):
             BASE_DIR = os.path.dirname(os.path.abspath(__file__))
             project_root = os.path.abspath(os.path.join(BASE_DIR, ".."))
             avatar_path = os.path.join(project_root, "images", "queso.jpg")
@@ -136,8 +136,8 @@ with gr.Blocks(
                 )
                 
             with gr.Row():
-                send_btn = gr.Button("📤 Enviar", variant="primary", scale=1)
-                clear_btn = gr.Button("🗑️ Limpiar", variant="secondary", scale=1)
+                send_btn = gr.Button("Enviar", variant="primary", scale=1)
+                clear_btn = gr.Button("Limpiar", variant="secondary", scale=1)
             
             gr.Examples(
                 examples=[
@@ -147,7 +147,7 @@ with gr.Blocks(
                     "Escribe un poema corto sobre la tecnología",
                 ],
                 inputs=msg,
-                label="💡 Ejemplos de preguntas"
+                label="Ejemplos de preguntas"
             )
         
         with gr.Tab("⚙️ Configuración", id=1):
@@ -163,7 +163,7 @@ with gr.Blocks(
                     "gemma2-9b-it"
                 ],
                 value="llama-3.3-70b-versatile",
-                label="🎯 Modelo de IA",
+                label="Modelo de IA",
                 info="Selecciona el modelo que procesará tus mensajes"
             )
             
@@ -172,24 +172,24 @@ with gr.Blocks(
                 maximum=2.0,
                 value=0.7,
                 step=0.1,
-                label="🌡️ Temperatura",
+                label="Temperatura",
                 info="Controla la creatividad (0.0 = preciso, 2.0 = muy creativo)"
             )
             
             system_prompt_textbox = gr.Textbox(
-                label="📝 Prompt del Sistema",
+                label="Prompt del Sistema",
                 placeholder="Ej: Eres un asistente experto en programación...",
                 value="Eres un asistente amigable, útil y conciso que responde de manera clara y profesional.",
                 lines=4,
                 info="Define la personalidad y comportamiento del agente"
             )
             
-            apply_btn = gr.Button("✅ Aplicar Configuración", variant="primary", size="lg")
+            apply_btn = gr.Button("Aplicar Configuración", variant="primary", size="lg")
             
-            config_status = gr.Markdown("ℹ️ Haz clic en 'Aplicar Configuración' para inicializar el agente")
+            config_status = gr.Markdown("ℹHaz clic en 'Aplicar Configuración' para inicializar el agente")
             
             
-            with gr.Accordion("📚 Información sobre los modelos", open=False):
+            with gr.Accordion("Información sobre los modelos", open=False):
                 gr.Markdown(
                     """
                     | Modelo | Descripción | Velocidad | Tokens |
@@ -203,10 +203,10 @@ with gr.Blocks(
                 )
         
         
-        with gr.Tab("ℹ️ Información", id=2):
+        with gr.Tab("ℹInformación", id=2):
             gr.Markdown(
                 """
-                ## 🚀 Acerca de este Chatbot
+                ## Acerca de este Chatbot
                 
                 Este chatbot utiliza la **API de Groq**, que ofrece:
                 
@@ -214,30 +214,30 @@ with gr.Blocks(
                 - ✅ **Velocidad ultrarrápida** gracias a hardware especializado
                 - ✅ **Completamente gratis** para uso personal
                 - ✅ **Sin límites restrictivos** en el tier gratuito
+                - ✅ **ta bacano
                 
-                ### 📖 Cómo usar:
+                ### Cómo usar:
                 
                 1. **Ve a la pestaña Configuración** y personaliza tu agente
                 2. **Haz clic en "Aplicar Configuración"**
                 3. **Regresa a la pestaña Chat** y comienza a conversar
                 4. **Usa el botón Limpiar** para reiniciar la conversación
                 
-                ### 🔐 Privacidad:
+                ### Privacidad:
                 
                 - Tus conversaciones NO se almacenan en ningún servidor
                 - Todo se procesa localmente en tu computadora
-                - La API de Groq solo recibe los mensajes durante la sesión activa
+                - La API solo recibe los mensajes durante la sesión activa
                 
-                ### 🛠️ Tecnologías:
+                ### Tecnologías:
                 
                 - **Framework UI**: Gradio
-                - **Proveedor de IA**: Groq
                 - **Modelos**: LLaMA 3.3, Mixtral, Gemma2
                 - **Lenguaje**: Python
                 
                 ---
                 
-                **Desarrollado por muted**
+                **Desarrollado por Gustavo**
                 """
             )
     
@@ -259,7 +259,7 @@ with gr.Blocks(
     def apply_config(model, temperature, system_prompt):
         """Aplicar configuración y reiniciar agente"""
         initialize_agent(model, temperature, system_prompt)
-        return f"✅ Configuración aplicada correctamente!\n\n**Modelo**: {model}\n**Temperatura**: {temperature}"
+        return f"Configuración aplicada correctamente!\n\n**Modelo**: {model}\n**Temperatura**: {temperature}"
     
     msg.submit(respond, [msg, chatbot], [msg, chatbot])
     send_btn.click(respond, [msg, chatbot], [msg, chatbot])
@@ -279,14 +279,14 @@ with gr.Blocks(
 
 if __name__ == "__main__":
     print("\n" + "="*70)
-    print("🚀 INICIANDO CHATBOT CON GROQ API")
+    print("INICIANDO CHATBOT CON API")
     print("="*70)
     print("\n✓ Interfaz: Gradio")
-    print("✓ Proveedor: Groq")
+    print("✓ API Encontrada")
     print("✓ Modelos disponibles: 5")
-    print("\n👉 La interfaz se abrirá automáticamente en tu navegador")
-    print("👉 URL local: http://127.0.0.1:7860")
-    print("👉 Presiona Ctrl+C para detener\n")
+    print("\nLa interfaz se abrirá automáticamente en tu navegador")
+    print("URL local: http://127.0.0.1:7860")
+    print("Presiona Ctrl+C para detener\n")
     print("="*70 + "\n")
     
     demo.launch(
