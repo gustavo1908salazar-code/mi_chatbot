@@ -3,8 +3,8 @@ from groq import Groq
 from dotenv import load_dotenv
 import gradio as gr
 
-env_path = r"C:\Users\Gustavo\Desktop\mi_chatbot\.env"
-load_dotenv(dotenv_path=env_path)
+
+load_dotenv()
 
 api_key = os.getenv("GROQ_API_KEY")
 
@@ -113,12 +113,15 @@ with gr.Blocks(
         
         # TAB 1: CHAT
         with gr.Tab("💬 Chat", id=0):
-            
+            BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+            project_root = os.path.abspath(os.path.join(BASE_DIR, ".."))
+            avatar_path = os.path.join(project_root, "images", "queso.jpg")
+
             chatbot = gr.Chatbot(
                 label="Conversación",
                 height=600,
                 show_copy_button=True,
-                avatar_images=(None, r"C:\Users\Gustavo\Desktop\mi_chatbot\images\queso.jpg"),
+                avatar_images=(None, avatar_path),
                 bubble_full_width=False,
                 elem_id="chatbot"
             )

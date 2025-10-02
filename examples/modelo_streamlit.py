@@ -4,8 +4,7 @@ from dotenv import load_dotenv
 import streamlit as st
 from datetime import datetime
 
-env_path = r"C:\Users\Gustavo\Desktop\mi_chatbot\.env"
-load_dotenv(dotenv_path=env_path)
+load_dotenv()
 
 api_key = os.getenv("GROQ_API_KEY")
 
@@ -129,9 +128,11 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(BASE_DIR, ".."))
+avatar_path = os.path.join(project_root, "images", "queso.jpg")
 with st.sidebar:
-    st.image(r"C:\Users\Gustavo\Desktop\mi_chatbot\images\queso.jpg", width=200)
+    st.image(avatar_path, width=200)
     
     st.title("⚙️ Configuración")
     st.divider()
