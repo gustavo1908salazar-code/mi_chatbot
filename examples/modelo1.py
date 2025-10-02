@@ -4,8 +4,8 @@ from groq import Groq
 from dotenv import load_dotenv
 
 
-env_path = r"C:\Users\Gustavo\Desktop\mi_chatbot\.env"
-load_dotenv(dotenv_path=env_path)
+
+load_dotenv()
 
 api_key = os.getenv("GROQ_API_KEY")
 
